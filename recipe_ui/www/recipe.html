@@ -1,0 +1,253 @@
+<html>
+    <head>
+            <title>The Kitchen Chef- Recipe Finder</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            
+            <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
+        
+            <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+            <link rel="stylesheet" href="css/animate.css">
+            
+            <link rel="stylesheet" href="css/owl.carousel.min.css">
+            <link rel="stylesheet" href="css/owl.theme.default.min.css">
+            <link rel="stylesheet" href="css/magnific-popup.css">
+        
+            <link rel="stylesheet" href="css/aos.css">
+        
+            <link rel="stylesheet" href="css/ionicons.min.css">
+        
+            <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+            <link rel="stylesheet" href="css/jquery.timepicker.css">
+        
+            
+            <link rel="stylesheet" href="css/flaticon.css">
+            <link rel="stylesheet" href="css/icomoon.css">
+            <link rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+            <div class="container">
+              <a class="subheading" href="index.html">The Kitchen Chef-Recipe Finder</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="oi oi-menu"></span> Menu
+                </button>
+        
+                <div class="collapse navbar-collapse" id="ftco-nav">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="visuals.html" class="nav-link">Visualizations</a>
+                    </li>
+                  </ul>
+                </div> 
+            </div>
+          </nav>
+       
+          <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container">
+              <div class="row no-gutters slider-text align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate text-center mb-4">
+                  <h1 class="mb-2 bread" id="description" text-transform="capitalize"></h1>
+                  <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2">
+                    <a id="myTextNew" href="results.html" >Results <i class="ion-ios-arrow-forward"></i></a></span> <span>Recipe<i class="ion-ios-arrow-forward"></i></span></p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="ftco-section">
+			<div class="container">
+				<div class="row">
+          <div class="col-lg-8 ftco-animate">
+                <h2 class="mb-3">Time to prepare: </h2>
+                <div id="time" class="mb-3"></div>
+            <h2 class="mb-3">How to prepare: </h2>
+            <div id="step" class="mb-3"></div>
+            <div class="tag-widget post-tag-container mb-5 mt-5">
+              <div class="tagcloud" id="tags"></div>
+            </div>
+            
+            <div class="about-author d-flex p-4 bg-light">
+              <div class="bio mr-5">
+                <img src="images/wine-1.jpg" alt="Image placeholder" height=100 width=100 class="img-fluid mb-4">
+              </div>
+              <div class="desc" id="desc"></div>
+            </div>
+
+
+            <div class="pt-5 mt-5">
+              <h3 class="mb-5 h4 font-weight-bold p-4 bg-light">Comments</h3>
+              <ul class="comment-list" id="comment"></ul>
+              <!-- END comment-list -->
+              
+            </div>
+          </div> <!-- .col-md-8 -->
+
+          <div class="col-lg-4 sidebar ftco-animate">
+            <div class="sidebar-box ftco-animate">
+            	<h3>Ingredients</h3>
+              <div class="sidebar-box ftco-animate" id="slideContainer"></div>
+
+              <ul class="categories" id="ingredients"></ul>
+            </div>
+
+
+            <div class="sidebar-box ftco-animate">
+            	<h3>Nutrition</h3>
+              <ul class="categories" id="nutri"></ul>
+            </div>
+          </div><!-- END COL -->
+        </div>
+			</div>
+		</section>      
+    
+<script type="text/javascript">
+
+//document.getElementById("myTextNew").setAttribute("href",localStorage.getItem("url"));
+// Get the recipeId from previous page
+    // var queryString = new Array();
+    // $(function () {
+    //     if (queryString.length == 0) {
+    //         if (window.location.search.split('?').length > 1) {
+    //             var params = window.location.search.split('?')[1].split('&');
+    //             for (var i = 0; i < params.length; i++) {
+    //                 var key = params[i].split('=')[0];
+    //                 var value = decodeURIComponent(params[i].split('=')[1]);
+    //                 queryString[key] = value;
+    //             }
+    //         }
+    //     }
+    //     if (queryString["name"] != null) {
+    //          var data = "<u>Values from QueryString</u><br /><br />";
+    //          data += "<b>Name:</b> " + queryString["name"];
+    //          $("#lblData").html(data);
+    //          var id=queryString["name"];
+    //          myFunction(id);
+    //         }
+    //     });
+
+    var id=localStorage.getItem("id");
+        myFunction(id);
+        // Retrieve recipe
+
+        async function myFunction(id) {
+         // alert(localStorage.getItem("url"));
+        var url='https://bigqueryproject-259721.appspot.com/api/recipes/'+id;
+        var url1='https://bigqueryproject-259721.appspot.com/api/interactions/recipe/'+id;
+
+    var data=await myFunction1(url);
+    console.log(data.data);
+
+    document.getElementById("description").innerHTML = data.data.name;
+    document.getElementById("desc").innerHTML = data.data.description;
+
+            // Get steps
+
+    var step='<ul>';
+    totalsteps=data.data.steps;
+	for (i = 0; i < totalsteps.length; i++){
+    step +='<li>'+totalsteps[i]+'</li>';
+    }
+	step+='</ul>'
+    document.getElementById("step").innerHTML = step;
+
+            //Get time
+
+    var min='<p>'+data.data.minutes+' minutes</p>';
+    document.getElementById("time").innerHTML = min;
+            //Get tags
+
+    var tag= new String();
+	for (i = 0; i < data.data.tags.length; i++){
+    tag +='<a class="tag-cloud-link">'+data.data.tags[i]+'</a>';
+    }
+    document.getElementById("tags").innerHTML = tag;
+
+        // Get Ingredients
+        var ingri= new String();
+    totalsteps=data.data.ingredients;
+	for (i = 0; i < totalsteps.length; i++){
+        ingri +='<li><a>'+totalsteps[i]+'</a></li>';
+    }
+    document.getElementById("ingredients").innerHTML = ingri;
+
+        // Get Nutrition
+    var nutri= data.data.nutrition;
+    var nutrit=nutri.replace(/\[/,"");
+    var nutriti=nutrit.replace(/\]/,"");
+    console.log(nutriti);
+    var nutri2=nutriti.split(",");
+    console.log(nutri2);
+    var nutri1=new String();
+
+        nutri1 +='<li><a>Calories<span>('+nutri2[0]+')</span></a></li>';
+        nutri1 +='<li><a>Total Fat<span>('+nutri2[1]+')</span></a></li>';
+        nutri1 +='<li><a>Sugar<span>('+nutri2[2]+')</span></a></li>';
+        nutri1 +='<li><a>Sodium<span>('+nutri2[3]+')</span></a></li>';
+        nutri1 +='<li><a>Protein<span>('+nutri2[4]+')</span></a></li>';
+        nutri1 +='<li><a>Saturated Fat<span>('+nutri2[5]+')</span></a></li>';
+        nutri1 +='<li><a>Carbohydrates<span>('+nutri2[6]+')</span></a></li>';
+
+    document.getElementById("nutri").innerHTML = nutri1;
+
+        // Get comments
+        var data1=await myFunction1(url1);
+    var comment= new String();
+    totcomments=data1.data;
+	totcomments.forEach(function(dat){
+    comment +='<li class="comment"><div class="vcard bio"><img src="images/dinner-3.jpg" alt="Image placeholder"></div><div class="comment-body"><h3>'+dat.userId+
+    '</h3><div class="meta mb-2">'+dat.createDate+'</div><p>'+dat.review+'</p><p><a class="reply">'+dat.rating+' stars</a></p></div></li>';
+            });
+                document.getElementById("comment").innerHTML = comment;
+
+
+    console.log(data1.data);
+
+      }
+
+      async function myFunction1(url) {
+   
+    return new Promise((resolve, reject) => {
+     //var url="https://bigqueryproject-259721.appspot.com/api/recipes/search/ingredients?searchQuery="+eed+;
+    axios.get(url)
+          .then((response) => {
+            if(response)
+           {
+          //     alert("success")
+               resolve(response)
+           }
+            else
+            {alert("data Issue")
+            reject("some issue")
+            }
+      
+          }).catch((error) => {
+            console.log("ERROR "+error);
+            reject("some issue")
+      });
+    });
+    }
+
+            </script>
+            <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/jquery.timepicker.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="js/google-map.js"></script>
+  <script src="js/main.js"></script>
+        </body>
+</html>

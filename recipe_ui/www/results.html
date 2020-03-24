@@ -1,0 +1,179 @@
+<html>
+<head>
+    <title>The Kitchen Chef- Recipe Finder</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+  <body>
+  <!--  <div class="py-1 bg-black top">
+    	<div class="container">
+    		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+	    		<div class="col-lg-12 d-block">
+		    		<div class="row d-flex">
+		    			<div class="col-md pr-4 d-flex topper align-items-center">
+					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+						    <span class="text">+ 1235 2355 98</span>
+					    </div>
+					    <div class="col-md pr-4 d-flex topper align-items-center">
+					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+						    <span class="text">youremail@email.com</span>
+					    </div>
+					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right justify-content-end">
+						    <p class="mb-0 register-link"><span>Open hours:</span> <span>Monday - Sunday</span> <span>8:00AM - 9:00PM</span></p>
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+		  </div>
+    </div> -->
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	    <div class="container">
+	      <a class="subheading" href="index.html">The Kitchen Chef-Recipe Finder</a>
+
+	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+          </button>
+  
+          <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+              <li class="nav-item"><a href="visuals.html" class="nav-link">Visualizations</a>
+              </li>
+            </ul>
+          </div> 
+	    </div>
+	  </nav>
+    <!-- END nav -->
+	  
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+          <div class="col-md-9 ftco-animate text-center mb-4">
+            <h1 class="mb-2 bread">Results</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Results <i class="ion-ios-arrow-forward"></i></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<!-- <span id = "lblData"></span>   -->
+<span id="slideContainer"></span>
+<script type="text/javascript">
+      function myFunction2(id){
+        //  alert(id);
+        localStorage.setItem("id", id);
+          var url = "recipe.html";
+            window.location.href = url;
+      }
+ //   var queryString = new Array();
+   // $(function () {
+        // if (queryString.length == 0) {
+        //     if (window.location.search.split('?').length > 1) {
+        //         var params = window.location.search.split('?')[1].split('&');
+        //         for (var i = 0; i < params.length; i++) {
+        //             var key = params[i].split('=')[0];
+        //             var value = decodeURIComponent(params[i].split('=')[1]);
+        //             queryString[key] = value;
+        //         }
+        //     }
+        // }
+       // if (queryString["name"] != null && queryString["technology"] != null) {
+			   
+           var query=localStorage.getItem("search");
+					var type=localStorage.getItem("option");
+         // alert(query +" "+type)
+						myFunction(query,type);
+    async function myFunction(query,type) {
+       // var query="chicken";
+       // var type="ingredients";
+        var url="https://bigqueryproject-259721.appspot.com/api/recipes/search/"+type+"?searchQuery="+query;
+
+    var data=await myFunction1(url);
+	var jsondata=data.data;
+	
+	  //    var slides = ["slide 1", "slide 2", "slide 3", "slide 4", "slide 5"]
+var str='<section class="ftco-section bg-light"><div class="container">';
+	jsondata.forEach(function(dat){
+	 console.log(dat.recipeId);
+		str +='<div class="blog-entry" onclick="myFunction2('+dat.recipeId+')"><div class="text pt-3 pb-4 px-4"><div class="meta"><div id="txtName"><a id="btnQueryString">'+
+        dat.recipeId+' - </a></div><div><a id="btnQueryString">'+dat.submittedDate+
+        '</a></div></div><img src="images/bg_4.jpg" alt="Image placeholder" height=100 width=100 class="img-fluid mb-4"><h2 class="heading"><a id="btnQueryString">'+dat.name+
+        '</a></h2><h3 class="clearfix"><a class="float-left read" id="btnQueryString">'+dat.description+
+        '</a></h3><p class="clearfix"><a class="float-left read" id="btnQueryString">Read more</a></p></div></div></a>';
+}
+	)
+	str+='</div></section>'
+	document.getElementById("slideContainer").innerHTML = str;
+      }
+
+      async function myFunction1(url) {
+   
+    return new Promise((resolve, reject) => {
+     //var url="https://bigqueryproject-259721.appspot.com/api/recipes/search/ingredients?searchQuery="+eed+;
+    axios.get(url)
+          .then((response) => {
+            if(response)
+           {
+              // alert("success")
+               resolve(response)
+           }
+            else
+            {alert("data Issue")
+            reject("some issue")
+            }
+      
+          }).catch((error) => {
+            console.log("ERROR "+error);
+            reject("some issue")
+      });
+})
+}
+    //     }
+    // });
+	</script>
+	
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/jquery.timepicker.min.js"></script>
+  <script src="js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="js/google-map.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
