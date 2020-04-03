@@ -1,4 +1,4 @@
-# Foot-Recipe-Recommender
+# Food-Recipe-Recommender
 
 Recipe App
 This dataset consists of 18 years of user interactions and recipe uploads on Food.com. We are planning on using the raw data on recipes and recipe reviews.
