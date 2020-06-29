@@ -1,7 +1,7 @@
 # Food-Recipe-Recommender
 
 Recipe App
-This dataset consists of 18 years of user interactions and recipe uploads on Food.com. We are planning on using the raw data on recipes and recipe reviews.
+This is about launching a website on google cloud platform. The website is about recommending a recipe based on the ingredients provided by the user.For designing the website, dataset was taken from the kaggle.This dataset consists of 18 years of user interactions and recipe uploads on Food.com. We have used the raw data on recipes and recipe reviews.
 Recipes o Size: 180K+, 287 MB
 Format: CSV
 Description: Consist for information like user id, recipe name, preparation description, tags, time required etc.
@@ -20,3 +20,4 @@ Dropwizard - The web framework used
 Maven - Dependency Management
 
 ROME - Used to generate RSS Feeds
+
